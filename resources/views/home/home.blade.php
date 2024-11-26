@@ -89,8 +89,9 @@
                 <!-- Notifications Dropdown Menu -->
 
             </ul>
-
-            <div id="scroll-right-btn" class="scroll-btn" onclick="scrollNavbar(1)">❯</div>
+            @if(!Auth::check())
+                <a href="{{ route('login')}}" class="btn btn-primary">Login As Admin</a>
+            @endif
 
         </nav>
         <!-- /.navbar -->
