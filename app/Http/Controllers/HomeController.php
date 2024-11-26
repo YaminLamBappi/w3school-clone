@@ -18,27 +18,27 @@ class HomeController extends Controller
         return view("home.public", compact("languages"));
         //
     }
-    public function home($id)
+    public function home($slug)
     {
 
         $languages = Language::all();
 
-        $courses = Language::findOrFail($id);
+        $language = Language::where('slug', $slug)->firstOrFail();
 
-        $topics = Topic::where('language_id', $id)->orderBy('sequence')->get();
-        return view("home.home", compact("languages", "courses", "topics"));
+        $topics = Topic::where('language_slug', $slug)->orderBy('sequence')->get();
+        return view("home.home", compact("languages", "language", "topics"));
     }
 
-    public function content($id, $lid)
+    public function content($slug, $lslug)
     {
         $languages = Language::all();
-        $courses = Language::findorfail($lid);
 
-        $content = Topic::where('id', $id)->first();
 
-        $topics = Topic::where('language_id', $lid)->get();
+        $content = Topic::where('slug', $slug)->first();
 
-        return view("home.content", compact("courses", "languages", "content", "topics"));
+        $topics = Topic::where('language_slug', $lslug)->get();
+
+        return view("home.content", compact("languages", "content", "topics"));
     }
 
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Language;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use App\Models\Topic;
 class LanguageController extends Controller
 {
     /**
@@ -35,6 +36,7 @@ class LanguageController extends Controller
 
         $language = new Language();
         $language->name = $request->name;
+        $language->slug = Str::slug($request->name);
 
         $language->save();
 
@@ -46,7 +48,7 @@ class LanguageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Language $language)
+    public function show()
     {
         $languages = Language::withCount('topic')->get();
 
@@ -57,9 +59,9 @@ class LanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $language = Language::findOrFail($id);
+        $language = Language::where('slug', $slug)->firstOrFail();
 
         return view("admin.EditLanguage", compact("language"));
         //
@@ -68,21 +70,27 @@ class LanguageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $language = Language::findOrFail($id);
-        $language->name = $request->name;
+        $language = Language::where('slug', $slug)->firstOrFail();
+
+        $newName = $request->input('name');
+        $language->name = $newName;
+        $language->slug = Str::slug($newName);
         $language->save();
-        return redirect()->route("show.language");
-        //
+
+        Topic::where('language_slug', $slug)->update(['language_slug' => $language->slug]);
+
+        return redirect()->route('show.language')->with('success', 'Language name updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $language = Language::findOrFail($id);
+        $language = Language::findOrFail($slug);
         $language->delete();
         return redirect()->route("show.language");
 

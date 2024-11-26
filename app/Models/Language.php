@@ -10,9 +10,15 @@ class Language extends Model
         'name',
     ];
 
+    public function getRouteKeyName()
+    {
+
+        return "slug";
+    }
+
     public function topic()
     {
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Topic::class, 'language_slug', 'slug');
     }
     //
 }

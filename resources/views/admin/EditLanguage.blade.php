@@ -11,7 +11,7 @@
                     <h1>Update Language</h1>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('update.language', ['id' => $language->id]) }}">
+                    <form method="post" action="{{ route('update.language', ['slug' => $language->slug]) }}">
                         @csrf
                         <input value="{{ $language->name }}" name="name" type="text">
                         <br>

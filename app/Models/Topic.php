@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Topic extends Model
 {
@@ -12,9 +13,17 @@ class Topic extends Model
         "sequence",
     ];
 
+    public function getRouteKeyName()
+    {
+
+        return "slug";
+    }
+
     public function language()
     {
-        return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class, 'language_slug', 'slug');
     }
+
+
     //
 }

@@ -18,7 +18,9 @@
 
                         <button class="btn btn-success" type="submit">Add</button>
                     </form>
-
+                    @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>

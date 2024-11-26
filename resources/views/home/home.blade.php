@@ -47,7 +47,7 @@
                 @foreach ($languages as $language)
 
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="{{ route('home', ['id' => $language->id])}}" class="nav-link">{{ $language->name }}</a>
+                        <a href="{{ route('home', ['slug' => $language->slug])}}" class="nav-link">{{ $language->name }}</a>
                     </li>
                 @endforeach
 
@@ -100,7 +100,7 @@
         <aside class="main-sidebar sticky-top sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                <h4 class="text-center">{{ $courses->name }}</h4>
+                <h4 class="text-center">{{ $language->name }}</h4>
             </a>
 
             <!-- Sidebar -->
@@ -126,7 +126,7 @@
 
                                 @foreach ($topics as $topic)
                                     <li class="nav-item">
-                                        <a href="{{ route('home.content', ['id' => $topic->id, 'lid' => $topic->language_id]) }}"
+                                        <a href="{{ route('home.content', ['slug' => $topic->slug, 'lslug' => $topic->language_slug]) }}"
                                             class="nav-link">
                                             <p>{{ $topic->title }}</p>
                                         </a>

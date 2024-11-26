@@ -48,7 +48,8 @@
                 <ul class="navbar-nav">
                     @foreach ($languages as $language)
                         <li class="nav-item">
-                            <a href="{{ route('home', ['id' => $language->id])}}" class="nav-link">{{ $language->name }}</a>
+                            <a href="{{ route('home', ['slug' => $language->slug])}}"
+                                class="nav-link">{{ $language->name }}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -84,7 +85,8 @@
                                 <h5 class="card-title">{{ $language->name }}</h5>
                                 <p class="card-text">Explore tutorials, examples, and resources for {{ $language->name }}.
                                 </p>
-                                <a href="{{ route('home', ['id' => $language->id])}}" class="btn btn-outline-primary">Learn
+                                <a href="{{ route('home', ['slug' => $language->slug])}}"
+                                    class="btn btn-outline-primary">Learn
                                     {{ $language->name }}</a>
                             </div>
                         </div>
