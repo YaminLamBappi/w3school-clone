@@ -15,9 +15,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('store.language') }}">
+                <form id='ajax-form' method="POST" action="{{ route('store.language') }}">
                     @csrf
-                    <input name="name" type="text">
+                    <input id="name" name="name" type="text">
 
                 </form>
 

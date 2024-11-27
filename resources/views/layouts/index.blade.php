@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Dashboard 2</title>
-
+  @yield('head')
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -128,12 +128,7 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('AddLanguage')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add Language</p>
-                  </a>
-                </li>
+
                 <li class="nav-item">
                   <a href="{{ route('show.language')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -151,12 +146,7 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('create.topic')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add Topic</p>
-                  </a>
-                </li>
+
                 <li class="nav-item">
                   <a href="{{ route('show.topic')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>

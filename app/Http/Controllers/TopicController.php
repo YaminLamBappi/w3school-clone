@@ -53,7 +53,9 @@ class TopicController extends Controller
 
         $topic->save();
 
-        return redirect()->route("show.topic");
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
 
@@ -87,27 +89,24 @@ class TopicController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        // Find the topic by slug
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-
-        // Validate the input data
         $request->validate([
-            "title" => "required",
-            "description" => "required",
-            "sequence" => "required",
-            "language_slug" => "required|exists:languages,slug"
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'sequence' => 'required|integer',
+            'language_slug' => 'required|string|exists:languages,slug',
         ]);
+
+        $topic = Topic::where('slug', $slug)->firstOrFail();
 
         $topic->title = $request->title;
         $topic->description = $request->description;
         $topic->sequence = $request->sequence;
-        $topic->slug = Str::slug($request->title);
-
         $topic->language_slug = $request->language_slug;
         $topic->save();
 
-        return redirect()->route('show.topic');
+        return response()->json(['status' => 200, 'message' => 'Topic updated successfully']);
     }
+
 
 
     /**
