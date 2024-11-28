@@ -19,11 +19,6 @@ class LanguageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view("admin.AddLanguage");
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -31,7 +26,7 @@ class LanguageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required",
+            'name' => 'required|string|max:255',
         ]);
 
         $language = new Language();
@@ -40,7 +35,9 @@ class LanguageController extends Controller
 
         $language->save();
 
-        return redirect()->route('show.language');
+        return response()->json([
+            'status' => 200,
+        ]);
 
         //
     }
@@ -59,13 +56,7 @@ class LanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
-    {
-        $language = Language::where('slug', $slug)->firstOrFail();
 
-        return view("admin.EditLanguage", compact("language"));
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -81,7 +72,10 @@ class LanguageController extends Controller
 
         Topic::where('language_slug', $slug)->update(['language_slug' => $language->slug]);
 
-        return redirect()->route('show.language')->with('success', 'Language name updated successfully!');
+        return response()->json([
+            'status' => 200,
+            'message' => "Language updated."
+        ]);
     }
 
 
@@ -90,10 +84,10 @@ class LanguageController extends Controller
      */
     public function destroy($slug)
     {
-        $language = Language::findOrFail($slug);
+        $language = Language::where('slug', $slug)->firstOrFail();
         $language->delete();
-        return redirect()->route("show.language");
-
-        //
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 }

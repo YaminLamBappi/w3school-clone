@@ -56,6 +56,8 @@
             </div>
             @if(!Auth::check())
                 <a href="{{ route('login')}}" class="btn btn-primary">Login As Admin</a>
+            @else
+                <a href="{{ route('dashboard')}}" class="btn btn-outline-primary">Dashboard</a>
             @endif
         </div>
     </nav>

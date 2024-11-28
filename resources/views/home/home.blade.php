@@ -25,7 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini ">
     <div class="wrapper">
 
         <!-- Preloader
@@ -91,6 +91,8 @@
             </ul>
             @if(!Auth::check())
                 <a href="{{ route('login')}}" class="btn btn-primary">Login As Admin</a>
+            @else
+                <a href="{{ route('dashboard')}}" class="btn btn-outline-primary">Dashboard</a>
             @endif
 
         </nav>

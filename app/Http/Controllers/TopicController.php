@@ -21,13 +21,6 @@ class TopicController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $languages = Language::get();
-        return view("admin.AddTopic", compact("languages"));
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -74,15 +67,6 @@ class TopicController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
-    {
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-        $languages = Language::get();
-
-        return view("admin.EditTopic", compact("topic", "languages"));
-
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -99,6 +83,7 @@ class TopicController extends Controller
         $topic = Topic::where('slug', $slug)->firstOrFail();
 
         $topic->title = $request->title;
+        $topic->slug = Str::slug($request->title);
         $topic->description = $request->description;
         $topic->sequence = $request->sequence;
         $topic->language_slug = $request->language_slug;
@@ -116,7 +101,7 @@ class TopicController extends Controller
     {
         $topic = Topic::where('slug', $slug)->firstOrFail();
         $topic->delete();
-        return redirect()->route('show.topic');
+        return response()->json(['status' => 200, 'message' => 'Topic updated successfully']);
         //
     }
 }
